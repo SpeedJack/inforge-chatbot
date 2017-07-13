@@ -1,6 +1,7 @@
 #!/usr/bin/python -u
 
 import urllib.request
+from urllib.error import HTTPError
 import json
 import time
 import telegram
@@ -54,7 +55,7 @@ def process(bot, line):
 		return
 	try:
 		userid, username, tgusername = ask_inforge(uid)
-	except urllib2.HTTPError as e:
+	except HTTPError as e:
 		if e.code == 400:
 			print("Account not found on inforge")
 			with open("to-contact.lst", "a") as f:
