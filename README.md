@@ -44,3 +44,8 @@ $ git submodule update --recursive
 $ cd modules/python-telegram-bot
 # python setup.py install
 ```
+## Log file
+Potete scaricare l'attuale log file dal VPS andando al seguente link:
+```
+https://telegram.inforge.net/tgbot/log-viewer.php?key=***REMOVED***
+```
