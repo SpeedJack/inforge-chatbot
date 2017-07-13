@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def ask_inforge(userid):
 	jsonstr = urllib.request.urlopen("https://www.inforge.net/xi/_api.php?action=getUsers&value=" + str(userid) + "&hash=***REMOVED***").read().decode("utf-8")
