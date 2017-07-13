@@ -7,6 +7,7 @@ import time
 import telegram
 from telegram.error import TelegramError
 import sqlite3 as sqlite
+from config import BOT_TOKEN
 from db import open_db_connection, close_db_connection, get_db_connection
 
 def insert_user(uid, name, tg):
@@ -89,7 +90,7 @@ def process(bot, line):
 
 if __name__ == "__main__":
 	open_db_connection()
-	bot = telegram.Bot(token="***REMOVED***")
+	bot = telegram.Bot(token=BOT_TOKEN)
 	with open("users.csv", "r") as f:
 		for line in f:
 			process(bot, line)

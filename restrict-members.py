@@ -4,6 +4,7 @@ import time
 import telegram
 from telegram.error import TelegramError
 from db import open_db_connection, close_db_connection, register_member, get_user_info
+from config import BOT_TOKEN
 
 
 def apply_restriction(userid):
@@ -54,7 +55,7 @@ def apply_restriction(userid):
 	print("User verified: skipping")
 
 if __name__ == "__main__":
-	bot = telegram.Bot(token="***REMOVED***")
+	bot = telegram.Bot(token=BOT_TOKEN)
 	open_db_connection()
 	with open("members.lst", "r") as f:
 		for line in f:

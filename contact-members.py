@@ -3,6 +3,7 @@
 import time
 import telegram
 from telegram.error import TelegramError
+from config import BOT_TOKEN
 
 _kbd = [[telegram.KeyboardButton(text=u"☑️ Verifica Account")],
 	[telegram.KeyboardButton(text=u"👤 Info su di me")]]
@@ -18,7 +19,7 @@ def contact(bot, userid):
 		print("Error:", str(err))
 
 if __name__ == "__main__":
-	bot = telegram.Bot(token="***REMOVED***")
+	bot = telegram.Bot(token=BOT_TOKEN)
 	with open("to-contact.lst", "r") as f:
 		for line in f:
 			contact(bot, int(line.rstrip("\n")))
