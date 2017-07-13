@@ -15,8 +15,7 @@ if (isset($_POST["username"]) && !empty($_POST["username"])) {
 if (isset($_POST["telegram"]) && !empty($_POST["telegram"])) {
 	$telegram = $_POST["telegram"];
 } else {
-	echo "NO-TG";
-	exit;
+	$telegram = "";
 }
 if (isset($_POST["signature"]) && !empty($_POST["signature"])) {
 	$signature = $_POST["signature"];
@@ -38,6 +37,14 @@ if (!$db) {
 	exit;
 }
 
+if ($telegram == "") {
+	$stmt = $db->prepare("DELETE FROM users WHERE ifuserid = :uid");
+	$stmt->bindValue(":uid", $username, SQLITE3_INTEGER);
+	$result = $stmt->execute();
+	echo "OK";
+	$db->close();
+	exit;
+}
 $stmt = $db->prepare("SELECT COUNT(*) AS num FROM users WHERE tgusername = :tg AND ifuserid != :uid");
 $stmt->bindValue(":tg", $telegram, SQLITE3_TEXT);
 $stmt->bindValue(":uid", $username, SQLITE3_INTEGER);

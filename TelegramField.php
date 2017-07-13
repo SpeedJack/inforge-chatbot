@@ -5,7 +5,7 @@ class Callback_TelegramField
 {
 	public static function validate($field, &$value, &$error)
 	{
-		if (preg_match("/^[a-zA-Z][a-zA-Z0-9_]{3,30}[a-zA-Z0-9]$/", $value) === 1) {
+		if (preg_match("/^[a-zA-Z][a-zA-Z0-9_]{3,30}[a-zA-Z0-9]$/", $value) === 1 || $value == "") {
 			$url = "https://telegram.inforge.net/tgbot/register.php";
 			$secret = "***REMOVED***";
 			$visitor = XenForo_Visitor::getInstance();
