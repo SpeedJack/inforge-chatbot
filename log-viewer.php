@@ -1,6 +1,6 @@
 <?php
-if ($_GET['key'] !== "***REMOVED***") {
-	exit
+if (!isset($_GET['key']) || $_GET['key'] !== "***REMOVED***") {
+	exit;
 }
 
 header("Content-Type: application/octet-stream");
