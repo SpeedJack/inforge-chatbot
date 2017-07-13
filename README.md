@@ -6,3 +6,7 @@ Il codice sorgente di questo bot contiene _informazioni pericolose_ se rilasciat
 Se pensate di poter migliorare il codice, potete effettuare modifiche. **Non forkate il repository!**. Se forkate il repository, la vostra fork diventa pubblica e accessibile a tutti (a meno che non pagate per repo privati). Per fare modifiche, _create una nuova branch_ e pushate in quella branch. Se poi le riterrò valide, provvederò a fare il merge con la branch master. Alternativamente potete anche creare delle _patch_ con _diff_ e mandarmele in privato.  
 
 _-- SpeedJack_  
+
+```
+$ git clone https://github.com/InforgeNet/inforge-chatbot.git --recursive
+```
