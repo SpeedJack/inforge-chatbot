@@ -12,10 +12,6 @@ Clonare il repository:
 ```
 $ git clone https://github.com/InforgeNet/inforge-chatbot.git --recursive
 ```
-Scaricare le dipendenze:  
-```
-$ git submodule --init --recursive
-```
 Installare le dipendenze:  
 ```
 $ cd modules/python-telegram-bot
@@ -40,4 +36,11 @@ $ cronjob -e
 * * * * * cd /path/to/repo && ./bot-controller.sh
 (Salva e chiudi)
 $ ./start.sh
+```
+## Aggiornamento
+```
+$ git pull
+$ git submodule update --recursive
+$ cd modules/python-telegram-bot
+# python setup.py install
 ```
