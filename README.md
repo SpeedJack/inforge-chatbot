@@ -7,6 +7,37 @@ Se pensate di poter migliorare il codice, potete effettuare modifiche. **Non for
 
 _-- SpeedJack_  
 
+## Installazione
+Clonare il repository:  
 ```
 $ git clone https://github.com/InforgeNet/inforge-chatbot.git --recursive
+```
+Scaricare le dipendenze:  
+```
+$ git submodule --init --recursive
+```
+Installare le dipendenze:  
+```
+$ cd modules/python-telegram-bot
+As root:
+# python setup.py install
+```
+## Avviare
+Configurazione:  
+```
+$ ./create-db.sh
+$ vim config.py
+```
+Avvio per prova del solo bot:  
+```
+$ ./chatbot.py
+```
+Avvio completo (assicurarsi che bot token e tutto il resto sia correttamente modificato in ogni file del progetto, non solo in config.py):  
+```
+$ ./stop.sh
+$ cronjob -e
+55 4 * * * cd /path/to/repo && ./backup.sh
+* * * * * cd /path/to/repo && ./bot-controller.sh
+(Salva e chiudi)
+$ ./start.sh
 ```
