@@ -48,7 +48,7 @@ def check_flood(bot, update, user_data, chat_data):
 				del chat_data['spammers_ts']
 			except:
 				pass
-	if len(update.message.text.split("\n")) > 20:
+	if update.message.text is not None and len(update.message.text.split("\n")) > 20:
 		ban_spammer(bot, userid, groupid)
 		update.message.delete()
 		if not 'spammers' in chat_data:
