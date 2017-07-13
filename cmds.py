@@ -64,7 +64,7 @@ def remove_restriction(bot, userid):
 	for grp in GROUP_WHITELIST:
 		try:
 			cm = bot.get_chat_member(chat_id=grp, user_id=userid)
-			if cm.status == 'restricted' and cm.can_send_messages:
+			if cm.status == 'restricted' and cm.can_send_messages == True:
 				bot.restrict_chat_member(chat_id=grp,
 						user_id=userid,
 						can_send_messages=True,

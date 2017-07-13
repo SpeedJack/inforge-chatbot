@@ -20,7 +20,7 @@ def apply_restriction(userid):
 		#double check
 		print("Not member: skipping")
 		return
-	if cm.status == "member" and cm.can_send_messages:
+	if cm.status == "member" and (cm.can_send_messages is None or cm.can_send_messages == True):
 		register_member(userid, group)
 	else:
 		print("Not member or can not send messages: skipping")
