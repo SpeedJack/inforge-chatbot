@@ -34,6 +34,7 @@ $ ./stop.sh
 $ cronjob -e
 55 4 * * * cd /path/to/repo && ./backup.sh
 * * * * * cd /path/to/repo && ./bot-controller.sh
+30 3 */7 * * truncate -s 0 /home/ovh/chatbot/chatbot.log
 (Salva e chiudi)
 $ ./start.sh
 ```
