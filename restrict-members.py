@@ -37,7 +37,7 @@ def apply_restriction(userid):
 			print("Error restrict_chat_member():", str(err))
 			pass
 		return
-	infos = get_user_info(username)
+	infos = get_user_info(cm.user.username)
 	if infos is None:
 		try:
 			bot.restrict_chat_member(chat_id=group,
