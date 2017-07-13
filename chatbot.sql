@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS users(
+	ifuserid INTEGER PRIMARY KEY,
+	ifusername VARCHAR(25) NOT NULL,
+	tgusername VARCHAR(32) UNIQUE NOT NULL,
+	restricted INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS members(
+	userid INTEGER,
+	groupid INTEGER,
+	banned_until INTEGER DEFAULT NULL,
+	PRIMARY KEY(userid, groupid)
+);
