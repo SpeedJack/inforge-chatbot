@@ -3,8 +3,7 @@
 import sys
 import telegram
 
-#group = -1001055827794
-group = -1001093943158
+group = -1001055827794 # Test group: -1001093943158
 
 if __name__ == "__main__":
 	if sys.argv[1:] is not None and sys.argv[1:] and sys.argv[1:] != "":
