@@ -40,7 +40,7 @@ if (!$db) {
 if ($telegram == "") {
 	$stmt = $db->prepare("DELETE FROM users WHERE ifuserid = :uid");
 	$stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
-	$result = $stmt->execute();
+	$stmt->execute();
 	echo "OK";
 	$db->close();
 	exit;
