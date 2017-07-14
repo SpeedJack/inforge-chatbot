@@ -39,7 +39,7 @@ if (!$db) {
 
 if ($telegram == "") {
 	$stmt = $db->prepare("DELETE FROM users WHERE ifuserid = :uid");
-	$stmt->bindValue(":uid", $username, SQLITE3_INTEGER);
+	$stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
 	$result = $stmt->execute();
 	echo "OK";
 	$db->close();
@@ -47,7 +47,7 @@ if ($telegram == "") {
 }
 $stmt = $db->prepare("SELECT COUNT(*) AS num FROM users WHERE tgusername = :tg AND ifuserid != :uid");
 $stmt->bindValue(":tg", $telegram, SQLITE3_TEXT);
-$stmt->bindValue(":uid", $username, SQLITE3_INTEGER);
+$stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
 $result = $stmt->execute();
 $arr = $result->fetchArray();
 if ($arr === false || $arr['num'] > 0) {
