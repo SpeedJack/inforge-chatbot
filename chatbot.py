@@ -42,7 +42,7 @@ def error(bot, update, error):
 def new_member(bot, update):
 	global _last_welcome_ts
 	uid = None
-	if message.new_chat_member:
+	if update.message.new_chat_member:
 		uid = update.message.new_chat_member.id
 	checked = False
 	verified = True
