@@ -27,10 +27,10 @@ class Callback_TelegramField
 			curl_setopt($handle, CURLOPT_POST, 1);
 			curl_setopt($handle, CURLOPT_POSTFIELDS, http_build_query($data));
 			$res = curl_exec($handle);
-			if ($res === "OK") {
-				curl_close($handle);
+			curl_close($handle);
+			if ($res === "OK")
 				return true;
-			} else if ($res === "DUP")
+			else if ($res === "DUP")
 				$error = "L'username Telegram inserito è già registrato con un altro account. Contatta il Supporto Ticket.";
 			else if ($res === false)
 				$error = "Errore durante la registrazione dell'account Telegram. Contatta il Supporto Ticket riportando questo messaggio: \"" . curl_error($handle) . "\"";
@@ -39,7 +39,6 @@ class Callback_TelegramField
 		} else {
 			$error = "Username Telegram non valido.";
 		}
-		curl_close($handle);
 		$value = "";
 		return false;
 	}
