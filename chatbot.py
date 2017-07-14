@@ -61,7 +61,7 @@ def new_member(bot, update):
 					can_send_media_messages=False,
 					can_send_other_messages=False,
 					can_add_web_page_previews=False)
-	if message.new_chat_member and not checked:
+	if update.message.new_chat_member and not checked:
 		username = update.message.new_chat_member.username
 		register_member(uid, update.message.chat_id)
 		infos = None
@@ -100,7 +100,7 @@ def old_member(bot, update):
 
 def remove_bot(bot, update):
 	uid = None
-	if message.new_chat_member:
+	if update.message.new_chat_member:
 		uid = update.message.new_chat_member.id
 	checked = False
 	for u in update.message.new_chat_members:
@@ -115,7 +115,7 @@ def remove_bot(bot, update):
 					can_add_web_page_previews=False)
 			bot.kick_chat_member(chat_id=update.message.chat_id,
 					user_id=u.id)
-	if message.new_chat_member and not checked:
+	if update.message.new_chat_member and not checked:
 		username = update.message.new_chat_member.username
 		if username and username[-3:].lower() == "bot":
 			bot.restrict_chat_member(chat_id=update.message.chat_id,
