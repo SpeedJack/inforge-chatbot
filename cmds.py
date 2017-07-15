@@ -6,9 +6,10 @@ import logging
 import telegram
 from telegram.error import (TelegramError, Unauthorized, BadRequest,
 		TimedOut, ChatMigrated, NetworkError)
-from config import PID_FILE, GROUP_WHITELIST
+from config import PID_FILE, GROUP_WHITELIST, LOG_BAN_CHAT
 from db import *
 from memoized import memoized, memoized_collect
+from killswitch import change_var
 
 import log
 logger = logging.getLogger(__name__)
@@ -257,6 +258,16 @@ def force_collect(bot, update):
 			text="Collecting old memoized data...")
 	memoized_collect(collect_time=0)
 
+def kill_switch(bot, update):
+	var = change_var()
+	username = update.message.from_user.username
+	if var:
+		bot.send_message(chat_id=LOG_BAN_CHAT, text="Kill-switch attivato da %s" % username)
+	else:
+		bot.send_message(chat_id=LOG_BAN_CHAT, text="Kill-switch disattivato da %s" % username)
+	update.message.delete()
+	logger.info("Kill switch on %s (requested by %s)" % var % username)
+
 #def purge(bot, update):
 #	bot.send_message(chat_id=update.message.chat_id,
 #			text="Purging cache...")
@@ -271,4 +282,4 @@ def kdb_action(bot, update):
 		whoami(bot, update)
 
 __all__ = ["show_help", "whoami", "whois", "ban_user", "unban_user", "ping",
-		"remove_keyboard", "restart", "force_collect", "kdb_action"]
+		"remove_keyboard", "restart", "force_collect", "kill_switch", "kdb_action"]
