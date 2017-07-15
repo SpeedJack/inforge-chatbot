@@ -12,11 +12,9 @@ def check_killswitch(bot, update):
 	userid = update.message.from_user.id
 	if var_kill_switch:
 		try:
-			bot.send_message(chat_id=userid, text="Al momento non è possibile inviare messaggi nel gruppo!")
+			update.message.delete()
 		except:
 			pass
-		finally:
-			update.message.delete()
 
 def change_var():
 	global var_kill_switch
