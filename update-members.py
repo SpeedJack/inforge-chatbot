@@ -66,11 +66,11 @@ def main():
 			finally:
 				time.sleep(0.1)
 		renow = int(time.time())
-		if next_time == now or next_time > renow+30*60 or next_time <= renow:
-			next_time = renow+30*60-3
+		if next_time == now or next_time > renow+10*60 or next_time <= renow:
+			next_time = renow+10*60-3
 		next_time -= renow
 		memoized().collect()
-		logger.info("Next run: " + str(next_time+3))
+		logger.debug("Next run: " + str(next_time+3))
 		time.sleep(next_time+3)
 
 
