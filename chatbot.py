@@ -11,6 +11,7 @@ from config import BOT_TOKEN, GROUP_WHITELIST, PID_FILE, LOG_ERROR_CHAT
 from db import open_db_connection, close_db_connection, register_member, get_user_info, set_not_restricted
 from cmds import *
 from antiflood import *
+from killswitch import *
 from filters import *
 from memoized import memoized_collect
 from telegram.ext import Updater
@@ -177,6 +178,9 @@ def main():
 	force_collect_handler = CommandHandler("force_collect", force_collect,
 			filters=Filters.group & filter_whitelist &
 			filter_admin)
+	killswitch_handler = CommandHandler("kill_switch", kill_switch,
+			filters=Filters.group & filter_whitelist &
+			filter_admin)
 #	purge_handler = CommandHandler("purge", purge,
 #			filters=Filters.group & filter_whitelist &
 #			filter_admin)
@@ -194,11 +198,14 @@ def main():
 			~Filters.status_update.left_chat_member &
 			~filter_admin,
 			check_flood, pass_user_data=True, pass_chat_data=True)
-
+	check_killswitch_handler = MessageHandler(Filters.group & filter_whitelist &
+			~Filters.status_update.new_chat_members &
+			~Filters.status_update.left_chat_member &
+			~filter_admin,
+			check_killswitch)
 	oldmember_handler = MessageHandler(Filters.group & filter_whitelist &
 			~filter_registered & ~filter_admin,
 			old_member)
-
 	whitelist_handler = MessageHandler(Filters.group & ~filter_whitelist,
 			leave_group)
 	pinger_handler = CommandHandler("ping", ping,
@@ -217,12 +224,14 @@ def main():
 	dispatcher.add_handler(remove_keyboard_handler)
 	dispatcher.add_handler(restart_handler)
 	dispatcher.add_handler(force_collect_handler)
+	dispatcher.add_handler(killswitch_handler)
 #	dispatcher.add_handler(purge_handler)
 	dispatcher.add_handler(kbd_action_handler)
 	dispatcher.add_handler(botadd_handler, 1)
 	dispatcher.add_handler(userjoin_handler, 1)
 	dispatcher.add_handler(antiflood_handler, 1)
 	dispatcher.add_handler(oldmember_handler, 2)
+	dispatcher.add_handler(check_killswitch_handler, 3)
 	dispatcher.add_handler(whitelist_handler, 97)
 	dispatcher.add_handler(pinger_handler, 97)
 	dispatcher.add_handler(collector_handler, 98)
