@@ -266,7 +266,7 @@ def kill_switch(bot, update):
 	else:
 		bot.send_message(chat_id=LOG_BAN_CHAT, text="Kill-switch disattivato da %s" % username)
 	update.message.delete()
-	logger.info("Kill switch on %s (requested by %s)" % var % username)
+	logger.info("Kill switch on %s (requested by %s)" % (var, username))
 
 #def purge(bot, update):
 #	bot.send_message(chat_id=update.message.chat_id,
