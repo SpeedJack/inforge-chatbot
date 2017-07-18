@@ -19,10 +19,6 @@ class FilterAddedBot(BaseFilter):
 		for u in message.new_chat_members:
 			if u.username and u.username[-3:].lower() == "bot":
 				return True
-		if message.new_chat_member is not None:
-			username = message.new_chat_member.username
-			if username and username[-3:].lower() == "bot":
-				return True
 		return False
 filter_added_bot = FilterAddedBot()
 

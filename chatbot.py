@@ -42,14 +42,8 @@ def error(bot, update, error):
 
 def new_member(bot, update):
 	global _last_welcome_ts
-	uid = None
-	if update.message.new_chat_member:
-		uid = update.message.new_chat_member.id
-	checked = False
 	verified = True
 	for u in update.message.new_chat_members:
-		if u.id == uid:
-			checked = True
 		if is_banned(u.id, update.message.chat_id):
 			continue
 		register_member(u.id, update.message.chat_id)
@@ -60,20 +54,6 @@ def new_member(bot, update):
 			verified = False
 			bot.restrict_chat_member(chat_id=update.message.chat_id,
 					user_id=u.id,
-					can_send_messages=True,
-					can_send_media_messages=False,
-					can_send_other_messages=False,
-					can_add_web_page_previews=False)
-	if update.message.new_chat_member and not checked and not is_banned(uid, update.message.chat_id):
-		username = update.message.new_chat_member.username
-		register_member(uid, update.message.chat_id)
-		infos = None
-		if username is not None and username != "":
-			infos = get_user_info(username)
-		if infos is None:
-			verified = False
-			bot.restrict_chat_member(chat_id=update.message.chat_id,
-					user_id=uid,
 					can_send_messages=True,
 					can_send_media_messages=False,
 					can_send_other_messages=False,
@@ -102,13 +82,7 @@ def old_member(bot, update):
 				can_add_web_page_previews=False)
 
 def remove_bot(bot, update):
-	uid = None
-	if update.message.new_chat_member:
-		uid = update.message.new_chat_member.id
-	checked = False
 	for u in update.message.new_chat_members:
-		if u.id == uid:
-			checked = True
 		if u.username and u.username[-3:].lower() == "bot":
 			bot.restrict_chat_member(chat_id=update.message.chat_id,
 					user_id=u.id,
@@ -118,17 +92,6 @@ def remove_bot(bot, update):
 					can_add_web_page_previews=False)
 			bot.kick_chat_member(chat_id=update.message.chat_id,
 					user_id=u.id)
-	if update.message.new_chat_member and not checked:
-		username = update.message.new_chat_member.username
-		if username and username[-3:].lower() == "bot":
-			bot.restrict_chat_member(chat_id=update.message.chat_id,
-					user_id=uid,
-					can_send_messages=False,
-					can_send_media_messages=False,
-					can_send_other_messages=False,
-					can_add_web_page_previews=False)
-			bot.kick_chat_member(chat_id=update.message.chat_id,
-					user_id=uid)
 
 	update.message.delete()
 
