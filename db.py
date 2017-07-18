@@ -55,10 +55,20 @@ def is_registered(userid, group):
 	cur.close()
 	return res['num'] > 0
 
-def get_banned_members():
+@memoized(timeout=10*60)
+def is_banned(userid, group):
 	conn = get_db_connection()
 	cur = conn.cursor()
-	cur.execute("SELECT * FROM members WHERE banned_until IS NOT NULL")
+	cur.execute("SELECT COUNT(*) AS num FROM members WHERE userid=? AND groupid=? AND banned_until IS NOT NULL",
+			(userid, group))
+	res = cur.fetchone()
+	cur.close()
+	return res['num'] > 0
+
+def get_temp_banned_members():
+	conn = get_db_connection()
+	cur = conn.cursor()
+	cur.execute("SELECT * FROM members WHERE banned_until IS NOT NULL AND banned_until != 0")
 	res = cur.fetchall()
 	cur.close()
 	return res
@@ -98,4 +108,5 @@ def set_not_restricted(ifuserid):
 
 __all__ = ["close_db_connection", "open_db_connection", "get_db_connection",
 		"register_member", "set_user_ban", "remove_user_ban",
-		"get_user_info", "set_not_restricted", "get_banned_members"]
+		"get_user_info", "set_not_restricted",
+		"get_temp_banned_members", "is_registered", "is_banned"]

@@ -156,17 +156,18 @@ def ban_user(bot, update, args):
 						text=str(err))
 				update.message.delete()
 				return
-			set_user_ban(userid, group, until)
 
 	whois_msg = prepare_whois_message(userid,
 			update.message.reply_to_message.from_user.username)
 	update.message.delete()
 	if until is not None:
+		set_user_ban(userid, group, until)
 		bot.send_message(chat_id=update.message.from_user.id,
 				text="<b>UTENTE BANNATO</b>\n" + whois_msg +\
 						"\n\n<b>FINO AL: " + datetime.datetime.fromtimestamp(until).strftime("%d/%m/%Y %H:%M") + "</b>",
 						parse_mode=telegram.ParseMode.HTML)
 	else:
+		set_user_ban(userid, group, 0)
 		bot.send_message(chat_id=update.message.from_user.id,
 				text="<b>UTENTE BANNATO</b>\n" + whois_msg,
 				parse_mode=telegram.ParseMode.HTML)

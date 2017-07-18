@@ -28,9 +28,12 @@ filter_added_bot = FilterAddedBot()
 
 class FilterRegistered(BaseFilter):
 	def filter(self, message):
-		if is_registered(message.from_user.id, message.chat_id):
-			return False
-		return True
+		return is_registered(message.from_user.id, message.chat_id)
 filter_registered = FilterRegistered()
+
+#class FilterBanned(BaseFilter):
+#	def filter(self, message):
+#		return is_banned(message.from_user.id, message.chat_id)
+#filter_banned = FilterBanned()
 
 __all__ = ["FilterAdmin", "filter_added_bot", "filter_registered"]

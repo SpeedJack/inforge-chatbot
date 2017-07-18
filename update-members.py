@@ -9,7 +9,7 @@ import telegram
 from telegram.error import TelegramError, Unauthorized, BadRequest
 from config import BOT_TOKEN
 from memoized import memoized
-from db import open_db_connection, close_db_connection, get_banned_members, get_user_info, remove_user_ban, set_user_ban
+from db import open_db_connection, close_db_connection, get_temp_banned_members, get_user_info, remove_user_ban, set_user_ban
 
 import log
 logger = logging.getLogger("update-members")
@@ -31,7 +31,7 @@ def main():
 	while True:
 		now = int(time.time())
 		next_time = now
-		data = get_banned_members()
+		data = get_temp_banned_members()
 		for m in data:
 			if m['banned_until'] > now:
 				if m['banned_until'] > next_time:

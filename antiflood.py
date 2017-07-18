@@ -27,7 +27,7 @@ def ban_spammer(bot, userid, groupid):
 	except TelegramError as err:
 		logger.warning("Error: %s" % str(err))
 		return False
-	# set_user_ban(userid, groupid, now+24*60*60)
+	set_user_ban(userid, groupid, 0)
 	if now - _last_ban_log > 30:
 		bot.send_message(chat_id=LOG_BAN_CHAT, text="Utente bannato: %s" % userid)
 		_last_ban_log = now

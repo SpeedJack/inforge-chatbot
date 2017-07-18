@@ -8,7 +8,7 @@ import telegram
 from telegram.error import (TelegramError, Unauthorized, BadRequest,
 		TimedOut, ChatMigrated, NetworkError)
 from config import BOT_TOKEN, GROUP_WHITELIST, PID_FILE, LOG_ERROR_CHAT
-from db import open_db_connection, close_db_connection, register_member, get_user_info, set_not_restricted
+from db import open_db_connection, close_db_connection, register_member, get_user_info, set_not_restricted, is_banned
 from cmds import *
 from antiflood import *
 from killswitch import *
@@ -50,6 +50,8 @@ def new_member(bot, update):
 	for u in update.message.new_chat_members:
 		if u.id == uid:
 			checked = True
+		if is_banned(u.id, update.message.chat_id):
+			continue
 		register_member(u.id, update.message.chat_id)
 		infos = None
 		if u.username is not None and u.username != "":
@@ -62,7 +64,7 @@ def new_member(bot, update):
 					can_send_media_messages=False,
 					can_send_other_messages=False,
 					can_add_web_page_previews=False)
-	if update.message.new_chat_member and not checked:
+	if update.message.new_chat_member and not checked and not is_banned(uid, update.message.chat_id):
 		username = update.message.new_chat_member.username
 		register_member(uid, update.message.chat_id)
 		infos = None
