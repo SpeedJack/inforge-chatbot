@@ -3,6 +3,7 @@ import datetime
 import time
 import sys
 import logging
+import html
 import telegram
 from telegram.error import (TelegramError, Unauthorized, BadRequest,
 		TimedOut, ChatMigrated, NetworkError)
@@ -33,11 +34,11 @@ def prepare_whois_message(userid, username):
 			"<b>tg userid:</b> " + str(userid) + "\n" +\
 			"<i>Account Inforge NON Collegato!</i>"
 	else:
+		ifusername = html.escape(infos["ifusername"])
 		return "<b>utente:</b> " + str(username) + "\n" +\
 			"<b>telegram userid:</b> " + str(userid) + "\n" +\
 			"<i>Account Inforge Collegato!</i>" + "\n" +\
-			"<b>inforge username:</b> " +\
-			infos["ifusername"] + "\n" +\
+			"<b>inforge username:</b> " + ifusername + "\n" +\
 			"<b>inforge userid:</b> " + str(infos["ifuserid"])
 
 def whoami(bot, update):
@@ -87,8 +88,8 @@ def show_verify_info(bot, update):
 			username = "non hai ancora scelto un username! Devi inserirlo dalle impostazioni di Telegram!"
 
 		bot.send_message(chat_id=userid,
-				text="Devi ancora verificare il tuo account!\n\nPer completare la verifica ti basta accedere al tuo account [inforge.net](https://www.inforge.net/xi/) e dirigerti nella pagina [Informazioni di Contatto](https://www.inforge.net/xi/account/contact-details) del tuo profilo. Qui, dovrai inserire il tuo username Telegram (" + username + ") nel campo `Telegram` e quindi cliccare su `Salva Modifica`. Finito!\n\nRicorda che dopo può essere necessario un po' di tempo (solitamente qualche minuto) prima che la modifica venga registrata (puoi _forzare_ l'aggiornamento cliccando nuovamente su `Verifica Account`). Se cambi il tuo username Telegram, ricordati di cambiarlo anche su Inforge (o il tuo account verrà nuovamente bloccato).\n\nIn caso di problemi, contatta il [Supporto Ticket](https://www.inforge.net/xi/support-tickets/open) nel Reparto Generale!",
-				parse_mode=telegram.ParseMode.MARKDOWN,
+				text="Devi ancora verificare il tuo account!\n\nPer completare la verifica ti basta accedere al tuo account <a href=\"https://www.inforge.net/xi/\">inforge.net</a> e dirigerti nella pagina <a href=\"https://www.inforge.net/xi/account/contact-details\">Informazioni di Contatto</a> del tuo profilo. Qui, dovrai inserire il tuo username Telegram (" + username + ") nel campo <code>Telegram</code> e quindi cliccare su <code>Salva Modifica</code>. Finito!\n\nRicorda che dopo può essere necessario un po' di tempo (solitamente qualche minuto) prima che la modifica venga registrata (puoi <i>forzare</i> l'aggiornamento cliccando nuovamente su <code>Verifica Account</code>). Se cambi il tuo username Telegram, ricordati di cambiarlo anche su Inforge (o il tuo account verrà nuovamente bloccato).\n\nIn caso di problemi, contatta il <a href=\"https://www.inforge.net/xi/support-tickets/open\">Supporto Ticket</a> nel Reparto Generale!",
+				parse_mode=telegram.ParseMode.HTML,
 				reply_markup=_rkm)
 		return
 
