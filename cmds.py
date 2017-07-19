@@ -34,7 +34,7 @@ def prepare_whois_message(userid, username):
 			"<b>tg userid:</b> " + str(userid) + "\n" +\
 			"<i>Account Inforge NON Collegato!</i>"
 	else:
-		ifusername = html.escape(infos["ifusername"])
+		ifusername = html.escape(infos["ifusername"], quote=False)
 		return "<b>utente:</b> " + str(username) + "\n" +\
 			"<b>telegram userid:</b> " + str(userid) + "\n" +\
 			"<i>Account Inforge Collegato!</i>" + "\n" +\
