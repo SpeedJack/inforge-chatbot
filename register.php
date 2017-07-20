@@ -51,7 +51,11 @@ $stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
 $result = $stmt->execute();
 $arr = $result->fetchArray();
 if ($arr === false || $arr['num'] > 0) {
-	echo "DUP";
+	if ($userid == 3 || $userid == 5 || $userid == 100009)
+		/* Workaround that enables Stefano Novelli, ZioMicio and SpeedJack to edit user profiles from the admincp */
+		echo "OK";
+	else
+		echo "DUP";
 } else {
 	$stmt = $db->prepare("INSERT OR REPLACE INTO users(ifuserid, ifusername, tgusername, restricted) VALUES (:uid, :name, :tg, 1)");
 	$stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
