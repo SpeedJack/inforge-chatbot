@@ -51,8 +51,8 @@ $stmt->bindValue(":uid", $userid, SQLITE3_INTEGER);
 $result = $stmt->execute();
 $arr = $result->fetchArray();
 if ($arr === false || $arr['num'] > 0) {
-	if ($userid == 3 || $userid == 5 || $userid == 100009)
-		/* Workaround that enables Stefano Novelli, ZioMicio and SpeedJack to edit user profiles from the admincp */
+	if ($userid == 3 || $userid == 5 || $userid == 100009 || $userid == 116266 || $userid == 202671 || $userid == 116476 || $userid == 86096)
+		/* Workaround that enables admins to edit user profiles from the admincp */
 		echo "OK";
 	else
 		echo "DUP";
