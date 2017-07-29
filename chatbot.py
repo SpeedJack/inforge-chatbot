@@ -81,19 +81,23 @@ def old_member(bot, update):
 				can_send_other_messages=False,
 				can_add_web_page_previews=False)
 
-def remove_bot(bot, update):
+def remove_bot(bot, update, user_data):
+	if not 'added_bots' in user_data:
+		user_data['added_bots'] = 0
+
 	for u in update.message.new_chat_members:
 		if u.username and u.username[-3:].lower() == "bot":
-			bot.restrict_chat_member(chat_id=update.message.chat_id,
-					user_id=u.id,
-					can_send_messages=False,
-					can_send_media_messages=False,
-					can_send_other_messages=False,
-					can_add_web_page_previews=False)
 			bot.kick_chat_member(chat_id=update.message.chat_id,
 					user_id=u.id)
+			user_data['added_bots'] += 1
+
+	if user_data['added_bots'] > 3:
+		bot.kick_chat_member(chat_id=update.message.chat_id,
+				user_id=update.message.from_user.id)
+		del user_data['added_bots']
 
 	update.message.delete()
+
 
 def leave_group(bot, update):
 	logger.info("Group %d is not whitelisted" % update.message.chat_id)
@@ -154,7 +158,7 @@ def main():
 	botadd_handler = MessageHandler(Filters.group & filter_whitelist &
 			Filters.status_update.new_chat_members &
 			filter_added_bot & ~filter_admin,
-			remove_bot)
+			remove_bot, pass_user_data=True)
 	userjoin_handler = MessageHandler(Filters.group & filter_whitelist &
 			Filters.status_update.new_chat_members,
 			new_member)
