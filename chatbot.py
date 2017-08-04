@@ -153,6 +153,8 @@ def main():
 #	purge_handler = CommandHandler("purge", purge,
 #			filters=Filters.group & filter_whitelist &
 #			filter_admin)
+	whois_forward_handler = MessageHandler(Filters.private &
+			Filters.forwarded, whois_forwarded)
 	kbd_action_handler = MessageHandler(Filters.private, kdb_action)
 
 	botadd_handler = MessageHandler(Filters.group & filter_whitelist &
@@ -195,6 +197,7 @@ def main():
 	dispatcher.add_handler(force_collect_handler)
 	dispatcher.add_handler(killswitch_handler)
 #	dispatcher.add_handler(purge_handler)
+	dispatcher.add_handler(whois_forward_handler)
 	dispatcher.add_handler(kbd_action_handler)
 	dispatcher.add_handler(botadd_handler, 1)
 	dispatcher.add_handler(userjoin_handler, 1)

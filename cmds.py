@@ -62,6 +62,15 @@ def whois(bot, update):
 	finally:
 		update.message.delete()
 
+def whois_forwarded(bot, update):
+	userid = update.message.forward_from.id
+	username = update.message.forward_from.username
+	bot.send_message(chat_id=update.message.from_user.id,
+			text=prepare_whois_message(userid, username),
+			parse_mode=telegram.ParseMode.HTML,
+			reply_to_message_id=update.message.message_id)
+
+
 def remove_restriction(bot, userid):
 	for grp in GROUP_WHITELIST:
 		try:
@@ -283,5 +292,6 @@ def kdb_action(bot, update):
 	elif update.message.text == u"👤 Info su di me":
 		whoami(bot, update)
 
-__all__ = ["show_help", "whoami", "whois", "ban_user", "unban_user", "ping",
-		"remove_keyboard", "restart", "force_collect", "kill_switch", "kdb_action"]
+__all__ = ["show_help", "whoami", "whois", "whois_forwarded", "ban_user",
+		"unban_user", "ping", "remove_keyboard", "restart",
+		"force_collect", "kill_switch", "kdb_action"]
