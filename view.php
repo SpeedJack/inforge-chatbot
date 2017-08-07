@@ -1,7 +1,7 @@
 <?php
 	$key = "***REMOVED***";
 	$path_db = "/home/ovh/chatbot/chatbot.db";
-	
+
 	// Check key
 	if(!isset($_GET['key']) || ($_GET['key'] != $key))
 		exit();
@@ -27,14 +27,14 @@
 			// Handle query
 			echo "<i>Executing query:" . $query."</i>";
 			$db = new SQLite3($path_db);
-			
+
 			if(!$db) {
 				echo "DB-ERR";
 				exit;
 			}
-			
+
 			$stmt = $db->prepare($query);
-			
+
 			$result = $stmt->execute();
 			echo "<table border=1>";
 			while($entry = $result->fetchArray(SQLITE3_NUM)){
