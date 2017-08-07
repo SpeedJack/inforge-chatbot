@@ -6,7 +6,8 @@
 	if(!isset($_GET['key']) || ($_GET['key'] != $key))
 		exit();
 	// Check POST
-	$query = $_POST['query'];
+	if (isset($_POST['query']))
+		$query = $_POST['query'];
 	?>
 <html>
 <head>
