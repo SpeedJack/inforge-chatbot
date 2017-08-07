@@ -50,3 +50,9 @@ Potete scaricare l'attuale log file dal VPS andando al seguente link:
 ```
 https://telegram.inforge.net/tgbot/log-viewer.php?key=***REMOVED***
 ```
+## Database
+Potete eseguire query sul database andando al seguente link:
+```
+https://telegram.inforge.net/tgbot/run-query.php?key=***REMOVED***
+```
+Eseguite solo query di SELECT; chi fa danni ne paga le conseguenze.
