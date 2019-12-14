@@ -1,4 +1,5 @@
 # Inforge Chatbot
+Old inforge Chatbot code. No longer maintained.
 
 ## Installazione
 Clonare il repository:  
